@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include "stdio.h"
+#include "stdlib.h"
 
 void swap ( int arr[], int i, int j ) {
 	int temp = arr[i];
@@ -35,13 +36,23 @@ void quicksortR ( int arr[], int first, int last ) {
 	
 }
 
-int main ()
+int main (int argc, char** argv) {
 
-{
-	int array[10] = {1, 5, 3, 0, 100, -5, 4, 2, 0, 6};
-	quicksortR(array, 0, 9);
-	
-	for (int j = 0; j < 10; j++) {
-		printf("array[%d] = %d\n", j, array[j]);
-	}
+    //Open file
+    FILE *f = fopen(argv[1], "r"); // "r" for read
+
+    //Get length
+    int length = 0;
+    fscanf (f, "%d", &length);  
+
+    //Gather ints
+    int arr[length];
+    for (int i = 0; i < length; i++) {
+        fscanf (f, "%d", &arr[i]);
+    }
+
+    //Sort
+    quicksortR(arr, 0, length-1);
+
+    return 0;
 }
