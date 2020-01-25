@@ -102,6 +102,9 @@ class MergeSort
 		// Read size
 		try {
 			size = Long.parseLong(br.readLine());
+			if (size == 0) {
+				return;
+			}
 		} catch (Exception e) {
 			System.out.println("Caught exception reading size from stdin, printing logs:");
 			e.printStackTrace();
