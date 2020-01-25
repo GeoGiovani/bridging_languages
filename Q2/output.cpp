@@ -2,16 +2,16 @@
 
 using namespace std;
 
-int main () {
+int main (int argc, char** argv) {
 
     int length = 0;
-    cin >> length;
+    scanf("%d", &length);
+    cout << length << endl;
 
-    string words[length];
-
-    for (int i = 0; i < length; i++) {
-        cout << words[i];
+    char c;
+    while (c != EOF) {
+        c = scanf("%c", &c);
+        cout << c;
     }
-
     return 0;
 }
