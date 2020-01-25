@@ -1,14 +1,14 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-void swap ( int arr[], int i, int j ) {
+void swap ( long long int arr[], int i, int j ) {
 	int temp = arr[i];
 	arr[i] = arr[j];
 	arr[j] = temp;
 }
 
 //Uses the last element in the array to partition
-int partition ( int arr[], int first, int last ) {
+int partition ( long long int arr[], int first, int last ) {
 	
 	int pivot = arr[last];
 	int mid = first; //Keeps track of the last smallest element
@@ -23,7 +23,7 @@ int partition ( int arr[], int first, int last ) {
 	return mid-1; 
 }
 
-void quicksortR ( int arr[], int first, int last ) {
+void quicksortR ( long long int arr[], int first, int last ) {
 	
 	if (first >= last) return;
 
@@ -48,17 +48,22 @@ int main (int argc, char** argv) {
     }
 
     //Get length
-    int length = 0;
-    fscanf (f, "%d", &length);  
+    long long int length = 0;
+    fscanf (f, "%lld", &length);  
 
     //Gather ints
-    int arr[length];
+    long long int arr[length];
     for (int i = 0; i < length; i++) {
-        fscanf (f, "%d", &arr[i]);
+        fscanf (f, "%lld", &arr[i]);
     }
 
     //Sort
     quicksortR(arr, 0, length-1);
+
+	for (long long int i = 0; i < length; i++) {
+		printf("%lld ", arr[i]);
+	}
+	printf("\n");
 
     return 0;
 }
