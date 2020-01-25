@@ -1,0 +1,6 @@
+To test our code, please use the following syntax:
+
+$ python3 caseparse.py -case 'case' < 'input_file'
+
+Kind regards,
+Team GGs
