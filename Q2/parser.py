@@ -1,3 +1,5 @@
+import subprocess
+
 def parse(input, type):
     words = []
     word = ""
@@ -41,3 +43,8 @@ def parse(input, type):
     #Add last word
     words.insert(word)
     return words
+
+p = subprocess.Popen(["output.cpp"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+words = parse(input, type)
+p.communicate(len(words))[0]
+p.communicate(words)[0]
