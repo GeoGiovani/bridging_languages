@@ -1,42 +1,44 @@
+import java.io.*;
+
 /* Merge Sort implemented in Java */
 class MergeSort
 {
 	// Merges two subarrays of arr[].
 	// First subarray is arr[l..m]
 	// Second subarray is arr[m+1..r]
-	void merge(unsigned long arr[], unsigned long l, unsigned long m, unsigned long r)
+	void merge(long arr[], long l, long m, long r)
 	{
 		// Split into left and right containers
-		unsigned long leftIdx = m - l + 1;
-		unsigned long rightIdx = r - m;
+		long leftIdx = m - l + 1;
+		long rightIdx = r - m;
 
 		// Allocate left and right temp arrays
-		unsigned long left[] = new unsigned long [leftIdx];
-		unsigned long right[] = new unsigned long [rightIdx];
+		long left[] = new long [(int) leftIdx];
+		long right[] = new long [(int) rightIdx];
 
-		unsigned long i, j;
+		long i, j;
 
 		// Inflate the temp arrays
 		for (i = 0; i < leftIdx; ++i)
-			left[i] = arr[l + i];
+			left[(int) i] = arr[(int) (l + i)];
 
 		for (j = 0; j < rightIdx; ++j)
-			right[j] = arr[m + 1+ j];
+			right[(int) j] = arr[(int) (m + 1 + j)];
 
 		// Initial indexes of first and second subarrays
 		i = 0;
 		j = 0;
 
 		// Perform the merge
-		unsigned long k = l;
+		long k = l;
 		while (i < leftIdx && j < rightIdx)
 		{
-			if (left[i] <= right[j])
+			if (left[(int) i] <= right[(int) j])
 			{
-				arr[k] = left[i];
+				arr[(int) k] = left[(int) i];
 				i++;
 			} else {
-				arr[k] = right[j];
+				arr[(int) k] = right[(int) j];
 				j++;
 			}
 			k++;
@@ -45,25 +47,25 @@ class MergeSort
 		// Copy remaining elements of left and right sub-arrays
 		while (i < leftIdx)
 		{
-			arr[k] = left[i];
+			arr[(int) k] = left[(int) i];
 			i++;
 			k++;
 		}
 
 		while (j < rightIdx)
 		{
-			arr[k] = right[j];
+			arr[(int) k] = right[(int) j];
 			j++;
 			k++;
 		}
 	}
 
-	void sort(unsigned long arr[], unsigned long l, unsigned long r)
+	void sort(long arr[], long l, long r)
 	{
 		if (l < r)
 		{
 			// Find the middle pounsigned long
-			unsigned long m = (l + r)/2;
+			long m = (l + r)/2;
 
 			// Sort first and second halves
 			sort(arr, l, m);
@@ -78,36 +80,66 @@ class MergeSort
 	public static void main(String args[])
 	{
 		// Make sure we have data
-		if (args.length <= 1) {
-			System.out.println("No data provided to sort, exiting...");
+		if (args.length >= 2 || args.length == 0) {
+			System.out.println("Invalid command line args, exiting...");
+			return;
+		}
+
+		long size = 0;
+		File inFile;
+		BufferedReader br;
+
+		// Read file
+		try {
+			inFile = new File(args[0]);
+			br = new BufferedReader(new FileReader(inFile));
+		} catch (Exception e) {
+			System.out.println("Caught exception reading file, printing logs:");
+			e.printStackTrace();
 			return;
 		}
 
 		// Read size
 		try {
-			unsigned int size = Long.parseUnsignedLong(args[0]);
+			size = Long.parseLong(br.readLine());
 		} catch (Exception e) {
 			System.out.println("Caught exception reading size from stdin, printing logs:");
 			e.printStackTrace();
+			return;
 		}
 
 		// Assign mem for input
-		unsigned int input = new unsigned long [size];
+		long input[] = new long [(int) size];
 
 		// Read the input into the input array
 		try {
-			for (unsigned long i = 0; i < size; ++i)
-				input[i] = Long.parseUnsignedLong(args[i + 1]);
+			String[] inputStr = br.readLine().split(" ");
+
+			if (size != inputStr.length) {
+				System.out.println("Input data length doesn't match the give size, exiting...");
+				return;
+			}
+
+			for (long i = 0; i < size; ++i)
+				input[(int) i] = Long.parseLong(inputStr[(int) i]);
+
 		} catch (Exception e) {
 			System.out.println("Caught exception reading data from stdin, printing logs:");
 			e.printStackTrace();
+			return;
 		}
 
 		MergeSort sorter = new MergeSort();
 		sorter.sort(input, 0, size - 1);
-		
+
 		// Print the sorted array
-		for (unsigned long i = 0; i < size; ++i)
-			System.out.print(input[i] + " ");
+		for (long i = 0; i < size; ++i)
+			System.out.print(input[(int) i] + " ");
+
+		try {
+			br.close();
+		} catch (Exception e) {
+			return;
+		}
 	}
 }
