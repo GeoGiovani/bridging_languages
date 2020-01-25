@@ -26,9 +26,12 @@ def heapSort(array):
         array[i], array[0] = array[0], array[i]
         heapStructure(array, i, 0)
 
-length = int(sys.stdin.readline())
-values = [int(s) for s in sys.stdin.readline().split(" ")]
+with open(sys.argv[1], 'r') as f:
+    length = int(f.readline().rstrip())
+    values = [int(s) for s in f.readline().rstrip().split(" ")]
 
 heapSort(values)
 for i in range(length):
     print(values[i], end=" ")
+
+f.close()
