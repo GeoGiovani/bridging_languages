@@ -41,6 +41,12 @@ int main (int argc, char** argv) {
     //Open file
     FILE *f = fopen(argv[1], "r"); // "r" for read
 
+    //Error check
+    if (f == NULL) {
+        printf("Ensure data is entered correctly\n");
+        return -1;
+    }
+
     //Get length
     int length = 0;
     fscanf (f, "%d", &length);  
